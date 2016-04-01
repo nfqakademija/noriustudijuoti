@@ -19,7 +19,7 @@ class DoctrineController extends Controller
         $programa->setKaina("3.14");
         $programa->setPavadinimas($dalykas);
 
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $em->persist($programa);
 
@@ -80,7 +80,7 @@ class DoctrineController extends Controller
         $progString .= $programa->getPavadinimas() . " ";
         $progString .= $programa->getKaina() . " | ";
 
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $em->remove($programa);
         $em->flush();
@@ -103,7 +103,7 @@ class DoctrineController extends Controller
         $progString .= $programa->getPavadinimas() . " ";
         $progString .= $programa->getKaina() . " | ";
 
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $programa->setPavadinimas("Update");
         $em->flush();
