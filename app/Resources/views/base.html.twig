@@ -16,14 +16,17 @@
         {% block header %}
             {% include "::inc/header.html.twig" %}
         {% endblock %}
-        {% block body %}{% endblock %}
+        {% block body %}Hello world{% endblock %}
     {% endblock %}
 </div>
 {% block footer %}
 {% include "::inc/footer.html.twig" %}
 {% endblock %}
+{% if app.environment == "dev" %}
+    <script src="{{ asset('webpack-dev-server.js') }}"></script>
+{% endif %}
 {% block javascripts %}
-    {#<script src="{{ asset('js/script.js') }}"></script>#}
+    {#<script type="text/javascript" src="{{ asset('assets/bundle.js') }}"></script>#}
 {% endblock %}
 </body>
 </html>
