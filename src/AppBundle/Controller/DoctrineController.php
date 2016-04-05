@@ -10,7 +10,7 @@ class DoctrineController extends Controller
 {
     /**
      *
-     * @Route("/Doctrine/Add/{dalykas}", name="dalykas")
+     * @Route("/Doctrine/Add/{dalykas}", name="add")
      *
      */
     public function addAction($dalykas)
@@ -32,7 +32,7 @@ class DoctrineController extends Controller
     }
     /**
      *
-     * @Route("/Doctrine/View")
+     * @Route("/Doctrine/View", name="view")
      *
      */
     public function viewAction()
@@ -42,6 +42,7 @@ class DoctrineController extends Controller
 
         foreach ($programos as $pr)
         {
+            $progString .= $pr->getId() . " ";
             $progString .= $pr->getPavadinimas() . " ";
             $progString .= $pr->getKaina() . " | ";
         }
@@ -52,7 +53,7 @@ class DoctrineController extends Controller
     }
     /**
      *
-     * @Route("/Doctrine/View/{id}", name="id")
+     * @Route("/Doctrine/View/{id}", name="idView")
      *
      */
     public function viewIdAction($id)
@@ -69,7 +70,7 @@ class DoctrineController extends Controller
     }
     /**
      *
-     * @Route("/Doctrine/Delete/{id}", name="id")
+     * @Route("/Doctrine/Delete/{id}", name="delete")
      *
      */
     public function deleteAction($id)
@@ -92,7 +93,7 @@ class DoctrineController extends Controller
     }
     /**
      *
-     * @Route("/Doctrine/Update/{id}", name="id")
+     * @Route("/Doctrine/Update/{id}", name="update")
      *
      */
     public function updateAction($id)
