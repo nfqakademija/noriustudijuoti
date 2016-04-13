@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Programa
+ * Program
  *
  * @ORM\Table(name="program")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ProgramRepository")
@@ -24,16 +24,47 @@ class Program
     /**
      * @var string
      *
-     * @ORM\Column(name="Pavadinimas", type="string", length=255)
+     * @ORM\Column(type="string", length=100)
      */
-    private $pavadinimas;
+    private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Kaina", type="decimal", precision=6, scale=2)
+     * @ORM\Column(type="decimal", precision=6, scale=2)
      */
-    private $kaina;
+    private $price;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255)
+     */
+    private $field;
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255)
+     */
+    private $branch;
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255)
+     */
+    private $form;
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255)
+     */
+    private $degree;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Subject", mappedBy="program")
+     */
+    private $subjects;
+
 
 
     /**
@@ -47,51 +78,187 @@ class Program
     }
 
     /**
-     * Set pavadinimas
+     * Set name
      *
-     * @param string $pavadinimas
+     * @param string $name
      *
-     * @return Programa
+     * @return Program
      */
-    public function setPavadinimas($pavadinimas)
+    public function setName($name)
     {
-        $this->pavadinimas = $pavadinimas;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get pavadinimas
+     * Get name
      *
      * @return string
      */
-    public function getPavadinimas()
+    public function getName()
     {
-        return $this->pavadinimas;
+        return $this->name;
     }
 
     /**
-     * Set kaina
+     * Set price
      *
-     * @param string $kaina
+     * @param string $price
      *
-     * @return Programa
+     * @return Program
      */
-    public function setKaina($kaina)
+    public function setPrice($price)
     {
-        $this->kaina = $kaina;
+        $this->price = $price;
 
         return $this;
     }
 
     /**
-     * Get kaina
+     * Get price
      *
      * @return string
      */
-    public function getKaina()
+    public function getPrice()
     {
-        return $this->kaina;
+        return $this->price;
+    }
+
+    /**
+     * Set field
+     *
+     * @param string $field
+     *
+     * @return Program
+     */
+    public function setField($field)
+    {
+        $this->field = $field;
+
+        return $this;
+    }
+
+    /**
+     * Get field
+     *
+     * @return string
+     */
+    public function getField()
+    {
+        return $this->field;
+    }
+
+    /**
+     * Set branch
+     *
+     * @param string $branch
+     *
+     * @return Program
+     */
+    public function setBranch($branch)
+    {
+        $this->branch = $branch;
+
+        return $this;
+    }
+
+    /**
+     * Get branch
+     *
+     * @return string
+     */
+    public function getBranch()
+    {
+        return $this->branch;
+    }
+
+    /**
+     * Set form
+     *
+     * @param string $form
+     *
+     * @return Program
+     */
+    public function setForm($form)
+    {
+        $this->form = $form;
+
+        return $this;
+    }
+
+    /**
+     * Get form
+     *
+     * @return string
+     */
+    public function getForm()
+    {
+        return $this->form;
+    }
+
+    /**
+     * Set degree
+     *
+     * @param string $degree
+     *
+     * @return Program
+     */
+    public function setDegree($degree)
+    {
+        $this->degree = $degree;
+
+        return $this;
+    }
+
+    /**
+     * Get degree
+     *
+     * @return string
+     */
+    public function getDegree()
+    {
+        return $this->degree;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->subjects = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add subject
+     *
+     * @param Subject $subject
+     *
+     * @return Program
+     */
+    public function addSubject(Subject $subject)
+    {
+        $this->subjects[] = $subject;
+
+        return $this;
+    }
+
+    /**
+     * Remove subject
+     *
+     * @param Subject $subject
+     */
+    public function removeSubject(Subject $subject)
+    {
+        $this->subjects->removeElement($subject);
+    }
+
+    /**
+     * Get subjects
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSubjects()
+    {
+        return $this->subjects;
     }
 }
-
