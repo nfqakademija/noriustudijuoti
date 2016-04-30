@@ -10,15 +10,10 @@ namespace AppBundle\Crawler;
 interface CrawlerInterface
 {
     /**
-     * Crawls through given Response, returns one Entity;
+     * Crawls through given url, returns all parsed Programs.
+     * @param string $url
      * @return
      */
-    public function crawl(string $htmlBody);
-
-    /**
-     * Crawsl through given response, returns all found Entities;
-     * @return
-     */
-    public function crawlMany(string $htmlBody);
+    public function crawlPrograms(string $url);
 
 }
