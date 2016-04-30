@@ -7,20 +7,18 @@
  */
 namespace AppBundle\Crawler;
 
-use GuzzleHttp\Psr7\Response;
-
 interface CrawlerInterface
 {
     /**
      * Crawls through given Response, returns one Entity;
      * @return
      */
-    public function crawl(Response $response);
+    public function crawl(string $htmlBody);
 
     /**
      * Crawsl through given response, returns all found Entities;
      * @return
      */
-    public function crawlMany(Response $response);
+    public function crawlMany(string $htmlBody);
 
 }

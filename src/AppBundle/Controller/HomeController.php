@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use AppBundle\Crawler\BodyGetter;
 
 class HomeController extends Controller
 {
@@ -14,6 +15,11 @@ class HomeController extends Controller
      */
     public function indexAction()
     {
+
+        // Pavyzdys
+        var_dump(BodyGetter::getBody('http://www.vu.lt/' .
+            'kviecia/rinkis-studijas/studiju-programos/1-pakopos-studiju-programos/'));
+
         return $this->render('AppBundle:Home:index.html.twig', array(
             // ...
         ));
