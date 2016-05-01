@@ -37,6 +37,28 @@ class Subject
      * @ORM\Column(type="integer")
      */
     private $credits;
+
+    /**
+     * @var int
+     *
+     * @orm\Column(type="integer")
+     */
+    private $semester;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    private $assessment;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(type="bool")
+     */
+    private $arbitrary;
+
     /**
      * @var Program
      *
@@ -125,5 +147,77 @@ class Subject
     public function getProgram()
     {
         return $this->program;
+    }
+
+    /**
+     * Set semester
+     *
+     * @param integer $semester
+     *
+     * @return Subject
+     */
+    public function setSemester($semester)
+    {
+        $this->semester = $semester;
+
+        return $this;
+    }
+
+    /**
+     * Get semester
+     *
+     * @return integer
+     */
+    public function getSemester()
+    {
+        return $this->semester;
+    }
+
+    /**
+     * Set assessment
+     *
+     * @param string $assessment
+     *
+     * @return Subject
+     */
+    public function setAssessment($assessment)
+    {
+        $this->assessment = $assessment;
+
+        return $this;
+    }
+
+    /**
+     * Get assessment
+     *
+     * @return string
+     */
+    public function getAssessment()
+    {
+        return $this->assessment;
+    }
+
+    /**
+     * Set arbitrary
+     *
+     * @param bool $arbitrary
+     *
+     * @return Subject
+     */
+    public function setArbitrary(bool $arbitrary)
+    {
+        $this->arbitrary = $arbitrary;
+
+        return $this;
+    }
+
+    /**
+     * Get arbitrary
+     *
+     * @return bool
+     */
+    public function getArbitrary()
+    {
+        return $this->arbitrary;
     }
 }

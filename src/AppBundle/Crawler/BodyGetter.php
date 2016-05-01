@@ -19,7 +19,6 @@ class BodyGetter
     public static function getBody(string $url) : string
     {
         $client = new Client();
-        var_dump($url);
         $response = $client->request('get', $url);
         return $response->getBody()->getContents();
     }

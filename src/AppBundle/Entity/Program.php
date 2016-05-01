@@ -26,6 +26,19 @@ class Program
      *
      * @ORM\Column(type="string", length=100)
      */
+    private $university;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=100)
+     */
+    private $faculty;
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=100)
+     */
     private $name;
 
     /**
@@ -47,12 +60,26 @@ class Program
      * @ORM\Column(type="string", length=255)
      */
     private $branch;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $length;
     /**
      * @var string
      *
      * @ORM\Column(type="string", length=255)
      */
     private $form;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255)
+     */
+    private $description;
     /**
      * @var string
      *
@@ -64,6 +91,13 @@ class Program
      * @ORM\OneToMany(targetEntity="Subject", mappedBy="program")
      */
     private $subjects;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255)
+     */
+    private $url;
 
 
 
@@ -260,5 +294,125 @@ class Program
     public function getSubjects()
     {
         return $this->subjects;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return Program
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set faculty
+     *
+     * @param string $faculty
+     *
+     * @return Program
+     */
+    public function setFaculty($faculty)
+    {
+        $this->faculty = $faculty;
+
+        return $this;
+    }
+
+    /**
+     * Get faculty
+     *
+     * @return string
+     */
+    public function getFaculty()
+    {
+        return $this->faculty;
+    }
+
+    /**
+     * Set length
+     *
+     * @param integer $length
+     *
+     * @return Program
+     */
+    public function setLength($length)
+    {
+        $this->length = $length;
+
+        return $this;
+    }
+
+    /**
+     * Get length
+     *
+     * @return integer
+     */
+    public function getLength()
+    {
+        return $this->length;
+    }
+
+    /**
+     * Set url
+     *
+     * @param string $url
+     *
+     * @return Program
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * Get url
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * Set university
+     *
+     * @param string $university
+     *
+     * @return Program
+     */
+    public function setUniversity($university)
+    {
+        $this->university = $university;
+
+        return $this;
+    }
+
+    /**
+     * Get university
+     *
+     * @return string
+     */
+    public function getUniversity()
+    {
+        return $this->university;
     }
 }
