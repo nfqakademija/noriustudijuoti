@@ -37,24 +37,26 @@ class VUParser implements ParserInterface
             $crawler = new Crawler($htmlBody);
 
             $name = $crawler->filter('.itemView .itemTitle')->text();
-            $school = 'Vilniaus Universitetas';
+            $university = 'Vilniaus Universitetas';
             $text = $crawler->filter('.itemView .itemFullText > p')->text();
             $information = $crawler->filter('.itemView .itemExtraFieldsValue')->each(
                 function (Crawler $c) {
                     return $c->text();
                 }
             );
+
             $subjectsURL = $crawler
                 ->filter('#nn_sliders_item_ką-studijuosite p a')
                 ->last()
                 ->link()
                 ->getUri();
+
             $subjects = $this->getSubjects(BodyGetter::getBody($subjectsURL));
 
             $program = new Program();
 
             $program->setName($name)
-                ->setSchool($school)
+                ->setUniversity($university)
                 ->setFaculty($information[0])
                 ->setField(trim($information[1], " "))
                 ->setBranch($information[2])
@@ -63,6 +65,7 @@ class VUParser implements ParserInterface
                 ->setForm($information[5])
                 ->setPrice(filter_var($information[4], FILTER_SANITIZE_NUMBER_FLOAT))
                 ->setDescription($text);
+
             foreach ($subjects as $subject) {
                 $program->addSubject($subject);
             }
@@ -97,6 +100,7 @@ class VUParser implements ParserInterface
             $information = array_values($information);
             return $this->getSubjectEntities($information);
         } catch (\Exception $e) {
+            throw new ParserException;
         }
     }
 
@@ -138,5 +142,4 @@ class VUParser implements ParserInterface
         }
         return $subjectArray;
     }
-
 }

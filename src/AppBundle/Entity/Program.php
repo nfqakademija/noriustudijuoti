@@ -26,7 +26,7 @@ class Program
      *
      * @ORM\Column(type="string", length=100)
      */
-    private $school;
+    private $university;
 
     /**
      * @var string
@@ -297,30 +297,6 @@ class Program
     }
 
     /**
-     * Set school
-     *
-     * @param string $school
-     *
-     * @return Program
-     */
-    public function setSchool($school)
-    {
-        $this->school = $school;
-
-        return $this;
-    }
-
-    /**
-     * Get school
-     *
-     * @return string
-     */
-    public function getSchool()
-    {
-        return $this->school;
-    }
-
-    /**
      * Set description
      *
      * @param string $description
@@ -414,5 +390,29 @@ class Program
     public function getUrl()
     {
         return $this->url;
+    }
+
+    /**
+     * Set university
+     *
+     * @param string $university
+     *
+     * @return Program
+     */
+    public function setUniversity($university)
+    {
+        $this->university = $university;
+
+        return $this;
+    }
+
+    /**
+     * Get university
+     *
+     * @return string
+     */
+    public function getUniversity()
+    {
+        return $this->university;
     }
 }

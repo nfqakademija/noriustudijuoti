@@ -49,7 +49,6 @@ class VUCrawler implements CrawlerInterface
                     $entity = $this->getProgram($item);
                     $entity->setUrl($item);
                     $entityArray[] = $entity;
-                    break;
                 }
             }
         } catch (\Exception $e) {
