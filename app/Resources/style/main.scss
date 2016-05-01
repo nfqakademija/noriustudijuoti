@@ -2,6 +2,9 @@
 $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
 
+$fa-font-path: "~font-awesome/fonts";
+@import "~font-awesome/scss/font-awesome";
+
 /* Space out content a bit */
 body {
   padding-top: 1.5rem;
@@ -73,6 +76,10 @@ body {
   }
 }
 
+//.content, .container {
+//  overflow: hidden;
+//}
+
 .row-centered {
   text-align: center;
 }
@@ -81,4 +88,63 @@ body {
 {
   padding-bottom: 3rem;
   padding-top: 3rem;
+}
+
+section.featured {
+  padding: 200px 0 60px;
+  background: #70B9B0;
+  color: #fdfdfd;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.mar-top50 {
+  margin-top: 50px;
+}
+
+.mar-bot40 {
+  margin-bottom: 40px;
+}
+
+.mar-bot20 {
+  margin-bottom: 20px;
+}
+
+section.featured h2.slogan {
+  color: #fff;
+  font-size: 48px;
+  font-weight: 900;
+}
+
+.navbar-bgcolor {
+  background-color: #4F827C;
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: #FFF;
+}
+
+.navbar-default .navbar-nav > li > a:hover {
+  color: #70B9B0;
+}
+
+.navbar-default .navbar-nav > li > a.active {
+  background-color: #FFF;
+}
+
+.navbar-header .navbar-brand, .navbar-header .navbar-brand:hover{
+  color: #ffffff;
+  font-weight: 900;
+}
+
+.btn-success {
+  background-color: #4F827C;
+  border-color: #70B9B0;
+}
+
+.btn-success:hover {
+  background-color: #70B9B0;
+  border-color: #4F827C;
 }

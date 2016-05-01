@@ -47,4 +47,9 @@ gulp.task('fonts', function() {
         .pipe(gulp.dest(dir.dist + 'fonts'));
 });
 
-gulp.task('default', ['sass', 'scripts', 'fonts', 'images']);
+gulp.task('icons', function() {
+    gulp.src([dir.bower + '/font-awesome/fonts/**'])
+        .pipe(gulp.dest(dir.dist + 'fonts'));
+});
+
+gulp.task('default', ['sass', 'scripts', 'fonts', 'images', 'icons']);
