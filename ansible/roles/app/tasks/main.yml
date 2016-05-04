@@ -1,0 +1,20 @@
+---
+
+- name: Initialize the deploy root and gather facts
+  deploy_helper: path={{ app_deploy_path }}
+
+- name: Create new release directory
+  file: path={{ deploy_helper.new_release_path }} state=directory
+
+- name: Add an unfinished file, to allow cleanup on successful finalize
+  file: path={{ deploy_helper.new_release_path }}/{{ deploy_helper.unfinished_filename }} state=touch
+
+- name: Unarchive the project to the new release directory
+  unarchive: src={{ app_tarball }} dest={{ deploy_helper.new_release_path }}
+
+- include: shared.yml
+- include: permissions.yml
+- include: prepare.yml
+
+- name: Finalize the deploy, removing the unfinished file and switching the symlink
+  deploy_helper: path={{ app_deploy_path }} release={{ deploy_helper.new_release }} state=finalize

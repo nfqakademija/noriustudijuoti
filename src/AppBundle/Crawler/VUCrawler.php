@@ -9,6 +9,7 @@ namespace AppBundle\Crawler;
 
 use AppBundle\Parser\ParserException;
 use AppBundle\Parser\VUParser;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\DomCrawler\Crawler;
 use AppBundle\Entity\Program;
 
@@ -16,10 +17,12 @@ class VUCrawler implements CrawlerInterface
 {
 
     private $parser;
+    private $em;
 
-    public function __construct()
+    public function __construct(EntityManager $entityManager)
     {
         $this->parser = new VUParser();
+        $this->em = $entityManager;
     }
 
     private function getProgramUrls(string $url)
@@ -27,7 +30,7 @@ class VUCrawler implements CrawlerInterface
         try {
             return $this->parser->getProgramUrls(BodyGetter::getBody($url));
         } catch (\Exception $e) {
-            throw new ParserException;
+            throw new CrawlerException;
         }
     }
     private function getProgram(string $url)
@@ -35,7 +38,7 @@ class VUCrawler implements CrawlerInterface
         try {
             return $this->parser->getProgram(BodyGetter::getBody($url));
         } catch (\Exception $e) {
-            throw new ParserException;
+            throw new CrawlerException;
         }
     }
 
@@ -43,16 +46,21 @@ class VUCrawler implements CrawlerInterface
     {
         try {
             $array = $this->getProgramUrls($url);
-            $entityArray = [];
             foreach ($array as $item) {
                 if ($item !== null) {
                     $entity = $this->getProgram($item);
                     $entity->setUrl($item);
-                    $entityArray[] = $entity;
+                    $this->persistProgram($entity);
                 }
             }
         } catch (\Exception $e) {
-            throw new ParserException;
+            throw new CrawlerException;
         }
+    }
+
+    public function persistProgram(Program $program)
+    {
+        $this->em->persist($program);
+        $this->em->flush();
     }
 }

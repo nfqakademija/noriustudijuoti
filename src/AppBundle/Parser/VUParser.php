@@ -111,7 +111,8 @@ class VUParser implements ParserInterface
         $currentSemester = '';
         $subject = new Subject();
         $counter = 0;
-        for ($i = 0; $i < count($info); $i++) {
+        $cycle = count($info);
+        for ($i = 0; $i < $cycle; $i++) {
             if (strpos($info[$i], 'semestras') !== false) {
                 $currentSemester = filter_var($info[$i], FILTER_SANITIZE_NUMBER_INT);
                 continue;

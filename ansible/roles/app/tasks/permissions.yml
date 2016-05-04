@@ -1,0 +1,33 @@
+---
+
+- name: Set deploy user write permissions for specific directories
+  acl: name={{ deploy_helper.new_release_path }}/{{ item }} entity={{ ansible_user_id }} etype=user permissions=rwX recursive=yes state=present
+  with_items: "{{ app_web_writable_directories }}"
+
+- name: Set web user write permissions for specific directories
+  acl: name={{ deploy_helper.new_release_path }}/{{ item }} entity=www-data etype=user permissions=rwX recursive=yes state=present
+  with_items: "{{ app_web_writable_directories }}"
+
+- name: Set deploy user default write permissions for specific directories
+  acl: name={{ deploy_helper.new_release_path }}/{{ item }} entity={{ ansible_user_id }} etype=user permissions=rwX recursive=yes state=present default=yes
+  with_items: "{{ app_web_writable_directories }}"
+
+- name: Set web user default write permissions for specific directories
+  acl: name={{ deploy_helper.new_release_path }}/{{ item }} entity=www-data etype=user permissions=rwX recursive=yes state=present default=yes
+  with_items: "{{ app_web_writable_directories }}"
+
+- name: Set deploy user write permissions for specific shared directories
+  acl: name={{ deploy_helper.shared_path }}/{{ item }} entity={{ ansible_user_id }} etype=user permissions=rwX recursive=yes state=present
+  with_items: "{{ app_web_writable_shared_directories }}"
+
+- name: Set web user write permissions for specific shared directories
+  acl: name={{ deploy_helper.shared_path }}/{{ item }} entity=www-data etype=user permissions=rwX recursive=yes state=present
+  with_items: "{{ app_web_writable_shared_directories }}"
+
+- name: Set deploy user default write permissions for specific shared directories
+  acl: name={{ deploy_helper.shared_path }}/{{ item }} entity={{ ansible_user_id }} etype=user permissions=rwX recursive=yes state=present default=yes
+  with_items: "{{ app_web_writable_shared_directories }}"
+
+- name: Set web user default write permissions for specific shared directories
+  acl: name={{ deploy_helper.shared_path }}/{{ item }} entity=www-data etype=user permissions=rwX recursive=yes state=present default=yes
+  with_items: "{{ app_web_writable_shared_directories }}"

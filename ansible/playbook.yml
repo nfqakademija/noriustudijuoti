@@ -1,0 +1,6 @@
+--
+
+- hosts: webservers
+
+  roles:
+      - { name: app, app_tarball: ../noriustudijuoti.tar.gz, app_deploy_path: /home/noriustudijuoti }

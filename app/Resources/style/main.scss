@@ -1,9 +1,9 @@
 //bootstrap
-$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
-@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+$icon-font-path: "~bower_components/bootstrap-sass/assets/fonts/bootstrap/";
+@import "~bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
 
-$fa-font-path: "~font-awesome/fonts";
-@import "~font-awesome/scss/font-awesome";
+$fa-font-path: "~bower_components/font-awesome/fonts";
+@import "~bower_components/font-awesome/scss/font-awesome";
 
 /* Space out content a bit */
 body {

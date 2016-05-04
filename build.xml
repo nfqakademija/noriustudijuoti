@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="noriustudijuoti" default="build" basedir=".">
+    <target name="assets">
+        <delete dir="${basedir}/web/bundles"/>
+        <exec executable="${basedir}/app/console">
+            <arg value="assets:install"/>
+            <arg value="--env=prod"/>
+            <arg value="--no-debug"/>
+        </exec>
+        <exec executable="npm">
+            <arg value="install"/>
+        </exec>
+        <exec executable="bower">
+            <arg value="install"/>
+        </exec>
+        <exec executable="webpack"/>
+    </target>
+
+    <target name="composer">
+        <exec executable="composer">
+            <arg value="install"/>
+            <arg value="--no-dev"/>
+            <arg value="--no-scripts"/>
+            <arg value="--no-interaction"/>
+            <arg value="--optimize-autoloader"/>
+        </exec>
+        <exec executable="composer">
+            <env key="SYMFONY_ENV" value="prod"/>
+            <arg value="run-script"/>
+            <arg value="build"/>
+        </exec>
+    </target>
+
+    <target name="build" depends="composer,assets">
+        <tar destfile="${basedir}/noriustudijuoti.tar.gz" compression="gzip" longfile="gnu">
+            <tarfileset dir=".">
+                <exclude name="noriustudijuoti.tar.gz"/>
+                <exclude name=".travis.yml"/>
+                <exclude name="bower.json"/>
+                <exclude name="build.xml"/>
+                <exclude name="README.md"/>
+                <exclude name="ansible/"/>
+                <exclude name="app/cache/*/**"/>
+                <exclude name="app/config/parameters.yml"/>
+                <exclude name="app/logs/*/**"/>
+                <exclude name="node_modules/"/>
+                <exclude name="bower_components/"/>
+                <exclude name="package.json"/>
+                <exclude name="Gulpfile.js"/>
+            </tarfileset>
+            <!-- Ant cannot read file permissions therefore you need to
+                 expclititly specify files or directories which have to
+                 have different permissions -->
+            <tarfileset dir="." filemode="755">
+                <include name="app/console"/>
+                <include name="bin/*"/>
+            </tarfileset>
+        </tar>
+    </target>
+</project>

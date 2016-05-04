@@ -1,0 +1,15 @@
+---
+
+- name: Create directories in the shared directory
+  file: path={{ deploy_helper.shared_path }}/{{ item.src }} state=directory
+  with_items: "{{ app_shared_directories }}"
+
+- name: Remove directories from release directory which have to be shared
+  file: path={{ deploy_helper.new_release_path }}/{{ item.path }} state=absent
+  with_items: "{{ app_shared_directories }}"
+
+- name: Add symlinks from the new release to the shared items
+  file: path={{ deploy_helper.new_release_path }}/{{ item.path }}
+        src={{ deploy_helper.shared_path }}/{{ item.src }}
+        state=link
+  with_items: "{{ app_shared_directories + app_shared_files }}"
