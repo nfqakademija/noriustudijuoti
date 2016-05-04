@@ -1,0 +1,2 @@
+[webservers]
+46.101.178.235 ansible_user=noriustudijuoti

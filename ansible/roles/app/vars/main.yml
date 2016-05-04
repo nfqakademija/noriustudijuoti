@@ -1,0 +1,13 @@
+---
+
+app_shared_files:
+    - { path: "app/config/parameters.yml", src: "app/config/parameters.yml" }
+
+app_shared_directories:
+    - { path: "app/logs", src: "app/logs" }
+
+app_web_writable_directories:
+    - "app/cache"
+
+app_web_writable_shared_directories:
+    - "app/logs"

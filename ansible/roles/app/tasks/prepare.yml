@@ -1,0 +1,7 @@
+---
+
+- name: Clear application cache
+  shell: app/console cache:clear --env=prod --no-debug chdir={{ deploy_helper.new_release_path }}
+
+- name: Force update database schema
+  shell: app/console doctrine:schema:update --force --env=prod --no-debug chdir={{ deploy_helper.new_release_path }}
