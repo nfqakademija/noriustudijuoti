@@ -15,6 +15,8 @@ class HomeController extends Controller
      */
     public function indexAction()
     {
+        $crawler = $this->get("app.crawler.vu");
+        $crawler->crawlPrograms("http://www.vu.lt/kviecia/rinkis-studijas/studiju-programos/1-pakopos-studiju-programos");
         return $this->render('AppBundle:Home:index.html.twig', array(
             // ...
         ));

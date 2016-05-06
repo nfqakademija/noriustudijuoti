@@ -1,4 +1,6 @@
 services:
+    app.parser.vu:
+        class: AppBundle\Parser\VUParser
     app.crawler.vu:
         class: AppBundle\Crawler\VUCrawler
-        arguments: [ "@doctrine.orm.entity_manager" ]
+        arguments: [ "@doctrine.orm.entity_manager", "@app.parser.vu" ]

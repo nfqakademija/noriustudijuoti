@@ -7,101 +7,91 @@
  */
 namespace AppBundle\Parser;
 
-use AppBundle\Crawler\BodyGetter;
 use AppBundle\Entity\Program;
 use AppBundle\Entity\Subject;
 use Symfony\Component\DomCrawler\Crawler;
 
 class VUParser implements ParserInterface
 {
+
+    private $function;
+
     public function getProgramUrls(string $htmlBody) : array
     {
-        try {
-            $crawler = new Crawler($htmlBody);
-            $urls = $crawler->filter('.active table tbody tr td p a')->each(
-                function (Crawler $c) {
-                    $s = $c->link()->getUri();
-                    if (strpos($s, 'item') !== false) {
-                        return $s;
-                    }
+        $crawler = new Crawler($htmlBody);
+        $urls = $crawler->filter('.gk-active table tbody tr td p a')->each(
+            function (Crawler $c) {
+                $s = $c->link()->getUri();
+                if (strpos($s, 'item') !== false) {
+                    return $s;
                 }
-            );
-            return $urls;
-        } catch (\Exception $e) {
-            throw new ParserException;
-        }
+            }
+        );
+        return $urls;
     }
     public function getProgram(string $htmlBody) : Program
     {
-        try {
-            $crawler = new Crawler($htmlBody);
+        $crawler = new Crawler($htmlBody);
 
-            $name = $crawler->filter('.itemView .itemTitle')->text();
-            $university = 'Vilniaus Universitetas';
-            $text = $crawler->filter('.itemView .itemFullText > p')->text();
-            $information = $crawler->filter('.itemView .itemExtraFieldsValue')->each(
-                function (Crawler $c) {
-                    return $c->text();
-                }
-            );
-
-            $subjectsURL = $crawler
-                ->filter('#nn_sliders_item_ką-studijuosite p a')
-                ->last()
-                ->link()
-                ->getUri();
-
-            $subjects = $this->getSubjects(BodyGetter::getBody($subjectsURL));
-
-            $program = new Program();
-
-            $program->setName($name)
-                ->setUniversity($university)
-                ->setFaculty($information[0])
-                ->setField(trim($information[1], " "))
-                ->setBranch($information[2])
-                ->setDegree($information[3])
-                ->setLength(filter_var($information[4], FILTER_SANITIZE_NUMBER_INT))
-                ->setForm($information[5])
-                ->setPrice(filter_var($information[4], FILTER_SANITIZE_NUMBER_FLOAT))
-                ->setDescription($text);
-
-            foreach ($subjects as $subject) {
-                $program->addSubject($subject);
+        $name = $crawler->filter('.itemView .nodate h1')->text();
+        $university = 'Vilniaus Universitetas';
+        $text = $crawler->filter('.itemView .itemFullText > p')->text();
+        $information = $crawler->filter('.itemView .itemExtraFieldsValue')->each(
+            function (Crawler $c) {
+                return $c->text();
             }
+        );
 
-            return $program;
-        } catch (\Exception $e) {
-            throw new ParserException;
+        $subjectsURL = $crawler
+            ->filter('#ką-studijuosite p a')
+            ->last()
+            ->link()
+            ->getUri();
+
+        $subjects = $this->getSubjects(call_user_func_array($this->function, array($subjectsURL)));
+
+        $program = new Program();
+
+        $program->setName($name)
+            ->setUniversity($university)
+            ->setFaculty($information[0])
+            ->setField(trim($information[1], " "))
+            ->setBranch($information[2])
+            ->setDegree($information[3])
+            ->setLength(filter_var($information[4], FILTER_SANITIZE_NUMBER_INT))
+            ->setForm($information[5])
+            ->setPrice(filter_var($information[4], FILTER_SANITIZE_NUMBER_FLOAT))
+            ->setDescription($text);
+
+        foreach ($subjects as $subject) {
+            $program->addSubject($subject);
         }
+
+        return $program;
     }
     public function getSubjects(string $htmlBody) : array
     {
-        try {
-            $crawler = new Crawler($htmlBody);
-            $information = $crawler->filter("table[align]:not(#wrapper) > tr > td")->each(
-                function (Crawler $c) {
-                    if ($c->attr('class') === 'clsSemestras') {
-                        if (strpos($c->text(), 'semestras') !== false) {
-                            return $c->text();
-                        }
-                    } elseif ($c->attr('class') === 'clsDalykuGrupe') {
-                        if (strpos($c->text(), 'blokas') !== false) {
-                            return $c->text();
-                        }
-                    } elseif ($c->attr('class') === 'clsDalykas') {
+        $crawler = new Crawler($htmlBody);
+        $information = $crawler->filter("table[align]:not(#wrapper) > tr > td")->each(
+            function (Crawler $c) {
+                if ($c->attr('class') === 'clsSemestras') {
+                    if (strpos($c->text(), 'semestras') !== false) {
                         return $c->text();
                     }
+                } elseif ($c->attr('class') === 'clsDalykuGrupe') {
+                    if (strpos($c->text(), 'blokas') !== false) {
+                        return $c->text();
+                    }
+                } elseif ($c->attr('class') === 'clsDalykas') {
+                    return $c->text();
                 }
-            );
-            $information = array_filter($information, function ($var) {
-                return !is_null($var);
-            });
-            $information = array_values($information);
-            return $this->getSubjectEntities($information);
-        } catch (\Exception $e) {
-            throw new ParserException;
-        }
+            }
+        );
+        $information = array_filter($information, function ($var) {
+            return !is_null($var);
+        });
+        $information = array_values($information);
+        return $this->getSubjectEntities($information);
     }
 
     private function getSubjectEntities(array $info) : array
@@ -142,5 +132,9 @@ class VUParser implements ParserInterface
             }
         }
         return $subjectArray;
+    }
+    public function setFunction($function)
+    {
+        $this->function = $function;
     }
 }
