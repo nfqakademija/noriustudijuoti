@@ -57,7 +57,7 @@ class Program
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $branch;
 
@@ -88,7 +88,7 @@ class Program
     private $degree;
 
     /**
-     * @ORM\OneToMany(targetEntity="Subject", mappedBy="program")
+     * @ORM\OneToMany(targetEntity="Subject", mappedBy="program", cascade={"persist", "remove"})
      */
     private $subjects;
 

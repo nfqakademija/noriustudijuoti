@@ -25,8 +25,16 @@ class VUCrawler implements CrawlerInterface
         $this->em = $entityManager;
         $this->getBody = function (string $url) {
             $client = new Client();
-            $response = $client->request('get', $url);
-            return $response->getBody()->getContents();
+            try {
+                $response = $client->request('get', $url);
+                if ($response->getStatusCode() !== '404') {
+                    return $response->getBody()->getContents();
+                } else {
+                    return null;
+                }
+            } catch (\Exception $e) {
+                return null;
+            }
         };
         $this->parser->setFunction($this->getBody);
     }
@@ -37,18 +45,25 @@ class VUCrawler implements CrawlerInterface
     }
     private function getProgram(string $url)
     {
-        return $this->parser->getProgram(call_user_func_array($this->getBody, array($url)));
+        $htmlBody = call_user_func_array($this->getBody, array($url));
+        if ($htmlBody !== null) {
+            return $this->parser->getProgram($htmlBody);
+        }
     }
 
     public function crawlPrograms(string $url)
     {
         $array = $this->getProgramUrls($url);
+        $lastUrl = null;
         foreach ($array as $item) {
-            if ($item !== null) {
+            if ($item !== null && ($lastUrl !== $item)) {
                 $entity = $this->getProgram($item);
-                $entity->setUrl($item);
-                $this->persistProgram($entity);
+                if ($entity !== null) {
+                    $entity->setUrl($item);
+                    $this->persistProgram($entity);
+                }
             }
+            $lastUrl = $item;
         }
     }
 

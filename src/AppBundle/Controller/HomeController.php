@@ -4,7 +4,7 @@ namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use AppBundle\Crawler\BodyGetter;
+use AppBundle\Entity\Program;
 
 class HomeController extends Controller
 {
@@ -15,8 +15,9 @@ class HomeController extends Controller
      */
     public function indexAction()
     {
-        $crawler = $this->get("app.crawler.vu");
-        $crawler->crawlPrograms("http://www.vu.lt/kviecia/rinkis-studijas/studiju-programos/1-pakopos-studiju-programos");
+        $this->get('app.crawler.vu')->crawlPrograms('http://www.vu.lt/kviecia/rinkis-studijas/studiju-programos/1-pakopos-studiju-programos/');
+
+
         return $this->render('AppBundle:Home:index.html.twig', array(
             // ...
         ));

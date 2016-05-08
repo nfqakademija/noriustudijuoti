@@ -36,10 +36,12 @@ class CrawlCommand extends ContainerAwareCommand
         $name = $input->getArgument('crawlerName');
         $url = $input->getArgument('url');
         $container = $this->getContainer();
+        $output->writeln('Starting crawler');
         if ($name && $url) {
             $crawler = $container->get('app.crawler.' . $name);
             $crawler->crawlPrograms($url);
         }
-        $output->writeln('Starting crawler');
+        $output->writeln('Crawler done');
+
     }
 }
