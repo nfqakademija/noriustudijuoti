@@ -15,5 +15,4 @@ interface CrawlerInterface
      * @return
      */
     public function crawlPrograms(string $url);
-
 }

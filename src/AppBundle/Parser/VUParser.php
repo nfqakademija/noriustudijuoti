@@ -7,79 +7,76 @@
  */
 namespace AppBundle\Parser;
 
-use AppBundle\Crawler\BodyGetter;
 use AppBundle\Entity\Program;
 use AppBundle\Entity\Subject;
 use Symfony\Component\DomCrawler\Crawler;
 
 class VUParser implements ParserInterface
 {
+
+    private $function;
+
     public function getProgramUrls(string $htmlBody) : array
     {
-        try {
-            $crawler = new Crawler($htmlBody);
-            $urls = $crawler->filter('.active table tbody tr td p a')->each(
-                function (Crawler $c) {
-                    $s = $c->link()->getUri();
-                    if (strpos($s, 'item') !== false) {
-                        return $s;
-                    }
+        $crawler = new Crawler($htmlBody);
+        $urls = $crawler->filter('.gk-active table tbody tr td p a')->each(
+            function (Crawler $c) {
+                $s = $c->link()->getUri();
+                if (strpos($s, 'item') !== false) {
+                    return $s;
                 }
-            );
-            return $urls;
-        } catch (\Exception $e) {
-            throw new ParserException;
-        }
+            }
+        );
+        return $urls;
     }
     public function getProgram(string $htmlBody) : Program
     {
-        try {
-            $crawler = new Crawler($htmlBody);
+        $crawler = new Crawler($htmlBody);
 
-            $name = $crawler->filter('.itemView .itemTitle')->text();
-            $university = 'Vilniaus Universitetas';
-            $text = $crawler->filter('.itemView .itemFullText > p')->text();
-            $information = $crawler->filter('.itemView .itemExtraFieldsValue')->each(
-                function (Crawler $c) {
-                    return $c->text();
-                }
-            );
+        $name = $crawler->filter('.itemView .nodate h1')->text();
+        $university = 'Vilniaus Universitetas';
+        $text = $crawler->filter('.itemView .itemFullText :not(a)')->text();
+        $informationLabel = $crawler->filter('.itemView .itemExtraFieldsLabel')->each(
+            function (Crawler $c) {
+                return $c->text();
+            }
+        );
+        $information = $crawler->filter('.itemView .itemExtraFieldsValue')->each(
+            function (Crawler $c) {
+                return $c->text();
+            }
+        );
 
-            $subjectsURL = $crawler
-                ->filter('#nn_sliders_item_ką-studijuosite p a')
-                ->last()
-                ->link()
-                ->getUri();
+        $crawledUrl = $crawler->filter('#ką-studijuosite p a');
+        $subjects = null;
+        if ($crawledUrl->count() > 0) {
+            $subjectsUrl = $crawledUrl
+            ->last()
+            ->link()
+            ->getUri();
+            $subjects = $this->getSubjects(call_user_func_array($this->function, array($subjectsUrl)));
+        }
 
-            $subjects = $this->getSubjects(BodyGetter::getBody($subjectsURL));
+        $program = $this->filterInformationToEntity($information, $informationLabel);
 
-            $program = new Program();
+        $program->setName($name)
+            ->setUniversity($university)
+            ->setDescription($text);
 
-            $program->setName($name)
-                ->setUniversity($university)
-                ->setFaculty($information[0])
-                ->setField(trim($information[1], " "))
-                ->setBranch($information[2])
-                ->setDegree($information[3])
-                ->setLength(filter_var($information[4], FILTER_SANITIZE_NUMBER_INT))
-                ->setForm($information[5])
-                ->setPrice(filter_var($information[4], FILTER_SANITIZE_NUMBER_FLOAT))
-                ->setDescription($text);
-
+        if ($crawledUrl->count() > 0) {
             foreach ($subjects as $subject) {
                 $program->addSubject($subject);
             }
-
-            return $program;
-        } catch (\Exception $e) {
-            throw new ParserException;
         }
+
+        return $program;
     }
     public function getSubjects(string $htmlBody) : array
     {
-        try {
-            $crawler = new Crawler($htmlBody);
-            $information = $crawler->filter("table[align]:not(#wrapper) > tr > td")->each(
+        $crawler = new Crawler($htmlBody);
+        $body = $crawler->filter("table[align]:not(#wrapper) > tr > td");
+        if ($body->count() > 0) {
+            $information = $body->each(
                 function (Crawler $c) {
                     if ($c->attr('class') === 'clsSemestras') {
                         if (strpos($c->text(), 'semestras') !== false) {
@@ -98,10 +95,11 @@ class VUParser implements ParserInterface
                 return !is_null($var);
             });
             $information = array_values($information);
-            return $this->getSubjectEntities($information);
-        } catch (\Exception $e) {
-            throw new ParserException;
+            if (count($information) > 0) {
+                return $this->getSubjectEntities($information);
+            }
         }
+        return array();
     }
 
     private function getSubjectEntities(array $info) : array
@@ -142,5 +140,33 @@ class VUParser implements ParserInterface
             }
         }
         return $subjectArray;
+    }
+    public function setFunction($function)
+    {
+        $this->function = $function;
+    }
+
+    private function filterInformationToEntity($information, $labels)
+    {
+        $informationLabelCount = count($labels);
+        $result = new Program();
+        for ($i = 0; $i < $informationLabelCount; $i++) {
+            if (strpos($labels[$i], 'Padalinys') !== false) {
+                $result->setFaculty($information[$i]);
+            } elseif (strpos($labels[$i], 'sritis') !== false) {
+                $result->setField($information[$i]);
+            } elseif (strpos($labels[$i], 'kryptis') !== false) {
+                $result->setBranch($information[$i]);
+            } elseif (strpos($labels[$i], 'Trukmė') !== false) {
+                $result->setLength(filter_var($information[$i], FILTER_SANITIZE_NUMBER_INT));
+            } elseif (strpos($labels[$i], 'laipsnis') !== false) {
+                $result->setDegree($information[$i]);
+            } elseif (strpos($labels[$i], 'forma') !== false) {
+                $result->setForm($information[$i]);
+            } elseif (strpos($labels[$i], 'kaina') !== false) {
+                $result->setPrice(filter_var($information[$i], FILTER_SANITIZE_NUMBER_INT));
+            }
+        }
+        return $result;
     }
 }
