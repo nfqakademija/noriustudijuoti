@@ -122,19 +122,24 @@ class VUParser implements ParserInterface
                 }
                 continue;
             } else {
-                if ($counter === 1) {
-                    $subject = new Subject();
-                    $subject->setName($info[$i]);
-                } elseif ($counter === 2) {
-                    $subject->setCredits($info[$i]);
-                } elseif ($counter === 4) {
-                    $subject->setAssessment($info[$i]);
-                } elseif ($counter === 6) {
-                    $counter = 0;
-                    $subject->setArbitrary($arbitrary)
-                        ->setSemester($currentSemester);
-                    $subjectArray[] = $subject;
-                    continue;
+                switch($counter) {
+                    case 1:
+                        $subject = new Subject();
+                        $subject->setName($info[$i]);
+                        break;
+                    case 2:
+                        $subject->setCredits($info[$i]);
+                        break;
+                    case 4:
+                        $subject->setAssessment($info[$i]);
+                        break;
+                    case 6:
+                        $counter = 0;
+                        $subject->setArbitrary($arbitrary)
+                            ->setSemester($currentSemester);
+                        $subjectArray[] = $subject;
+                        continue;
+                        break;
                 }
                 $counter++;
             }
@@ -148,23 +153,22 @@ class VUParser implements ParserInterface
 
     private function filterInformationToEntity($information, $labels)
     {
-        $informationLabelCount = count($labels);
         $result = new Program();
-        for ($i = 0; $i < $informationLabelCount; $i++) {
-            if (strpos($labels[$i], 'Padalinys') !== false) {
-                $result->setFaculty($information[$i]);
-            } elseif (strpos($labels[$i], 'sritis') !== false) {
-                $result->setField($information[$i]);
-            } elseif (strpos($labels[$i], 'kryptis') !== false) {
-                $result->setBranch($information[$i]);
-            } elseif (strpos($labels[$i], 'Trukmė') !== false) {
-                $result->setLength(filter_var($information[$i], FILTER_SANITIZE_NUMBER_INT));
-            } elseif (strpos($labels[$i], 'laipsnis') !== false) {
-                $result->setDegree($information[$i]);
-            } elseif (strpos($labels[$i], 'forma') !== false) {
-                $result->setForm($information[$i]);
-            } elseif (strpos($labels[$i], 'kaina') !== false) {
-                $result->setPrice(filter_var($information[$i], FILTER_SANITIZE_NUMBER_INT));
+        foreach ($labels as $key => $label) {
+            if (strpos($label, 'Padalinys') !== false) {
+                $result->setFaculty($information[$key]);
+            } elseif (strpos($label, 'sritis') !== false) {
+                $result->setField($information[$key]);
+            } elseif (strpos($label, 'kryptis') !== false) {
+                $result->setBranch($information[$key]);
+            } elseif (strpos($label, 'Trukmė') !== false) {
+                $result->setLength(filter_var($information[$key], FILTER_SANITIZE_NUMBER_INT));
+            } elseif (strpos($label, 'laipsnis') !== false) {
+                $result->setDegree($information[$key]);
+            } elseif (strpos($label, 'forma') !== false) {
+                $result->setForm($information[$key]);
+            } elseif (strpos($label, 'kaina') !== false) {
+                $result->setPrice(filter_var($information[$key], FILTER_SANITIZE_NUMBER_INT));
             }
         }
         return $result;
