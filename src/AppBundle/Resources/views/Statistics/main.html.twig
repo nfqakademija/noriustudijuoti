@@ -1,0 +1,65 @@
+{% extends "::base.html.twig" %}
+{% block container %}
+<div class="container mar-top50">
+    {% block body %}
+    <div class="row">
+        <div>
+            <p>
+            <h1>10 populiariausių kažko</h1>
+            </p>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Studijų programa</th>
+                    <th>Stojančių skaičius</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Informatika</td>
+                    <td>10 000</td>
+                </tr>
+                <tr>
+                    <td>Programų sistemos</td>
+                    <td>5 000</td>
+                </tr>
+                <tr>
+                    <td>Kompiuterių mokslas</td>
+                    <td>4556</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <p>
+            <h1>10 populiariausių kažko</h1>
+            </p>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Studijų programa</th>
+                    <th>Stojančių skaičius</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Informatika</td>
+                    <td>10 000</td>
+                </tr>
+                <tr>
+                    <td>Programų sistemos</td>
+                    <td>5 000</td>
+                </tr>
+                <tr>
+                    <td>Kompiuterių mokslas</td>
+                    <td>4556</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    ​{% endblock %}
+    {% block footer %}
+    {{ parent() }}
+    {% endblock %}
+{% endblock %}
