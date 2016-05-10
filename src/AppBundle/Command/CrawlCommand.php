@@ -23,23 +23,17 @@ class CrawlCommand extends ContainerAwareCommand
                 'crawlerName',
                 InputArgument::REQUIRED,
                 'The crawlers name'
-            )
-            ->addArgument(
-                'url',
-                InputArgument::REQUIRED,
-                'Url for crawler to work with'
             );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $name = $input->getArgument('crawlerName');
-        $url = $input->getArgument('url');
         $container = $this->getContainer();
         $output->writeln('Starting crawler');
-        if ($name && $url) {
+        if ($name) {
             $crawler = $container->get('app.crawler.' . $name);
-            $crawler->crawlPrograms($url);
+            $crawler->crawlPrograms($this->getContainer()->getParameter($name . '_url'));
         }
         $output->writeln('Crawler done');
 

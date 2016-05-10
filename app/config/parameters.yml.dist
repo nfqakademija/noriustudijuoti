@@ -15,5 +15,8 @@ parameters:
     mailer_user:       ~
     mailer_password:   ~
 
+    # Parameters for crawling
+    vu_url:            'http://www.vu.lt/kviecia/rinkis-studijas/studiju-programos/1-pakopos-studiju-programos/'
+
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt

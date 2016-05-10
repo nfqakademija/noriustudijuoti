@@ -1,0 +1,70 @@
+{% extends "::base.html.twig" %}
+{% block container %}
+    <div class="container mar-top50">
+    {% block body %}
+        <div class="row">
+            <div class="col-md-4">
+                <div>
+                    <h2>
+                        Studijų sritis
+                    </h2>
+                </div>
+            </div>
+            <div class="col-md-8" style="border-bottom: 1px solid #000; margin-bottom: 10px;">
+                <h2><a href="#">Studijų sąrašas</a> > <a href="#">Technologijos</a> > IT</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div>
+                    <h4>
+                        <a href="#">Technologijos</a>
+                    </h4>
+                </div>
+                <div>
+                    <h4>
+                        <a href="#">Medicina</a>
+                    </h4>
+                </div>
+                <div>
+                    <h4>
+                        <a href="#">Socialiniai</a>
+                    </h4>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="row" style="border: 1px solid #e5e5e5; margin-bottom: 10px;">
+                    <div class="col-md-8" style="padding:10px;">
+                        <span style="font-size: 21px;">Internetinių svetainių kūrimas</span><br/>
+                        <span style="font-size: 18px;"><a href="#">Vilniaus kolegija</a></span><br/>
+                        Informacinių sistemų inžinerija<br/>
+                    </div>
+                    <div class="col-md-2" style="padding:10px;"><h1 style="border-right: 2px solid;">150</h1></div>
+                    <div class="col-md-2" style="padding:10px;">Kita info</div>
+                </div>
+                <div class="row" style="border: 1px solid #e5e5e5; margin-bottom: 10px;">
+                    <div class="col-md-8" style="padding:10px;">
+                        <span style="font-size: 21px;">Internetinių svetainių kūrimas</span><br/>
+                        <span style="font-size: 18px;"><a href="#">Vilniaus kolegija</a></span><br/>
+                        Informacinių sistemų inžinerija<br/>
+                    </div>
+                    <div class="col-md-2" style="padding:10px;"><h1 style="border-right: 2px solid;">150</h1></div>
+                    <div class="col-md-2" style="padding:10px;">Kita info</div>
+                </div>
+                <div class="row" style="border: 1px solid #e5e5e5; margin-bottom: 10px;">
+                    <div class="col-md-8" style="padding:10px;">
+                        <span style="font-size: 21px;">Internetinių svetainių kūrimas</span><br/>
+                        <span style="font-size: 18px;"><a href="#">Vilniaus kolegija</a></span><br/>
+                        Informacinių sistemų inžinerija<br/>
+                    </div>
+                    <div class="col-md-2" style="padding:10px;"><h1 style="border-right: 2px solid;">150</h1></div>
+                    <div class="col-md-2" style="padding:10px;">Kita info</div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+    {% block footer %}
+        {{ parent() }}
+    {% endblock %}
+    </div>
+{% endblock %}

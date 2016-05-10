@@ -1,26 +1,45 @@
 {% extends "::base.html.twig" %}
-
-{% block title %}Homepage - {{ parent() }}{% endblock %}
-
-{% block stylesheets %}
-    <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
-    {{ parent() }}
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-weight: 100;
-            font-family: 'Lato';
-        }
-
-        .title {
-            margin: 20px auto;
-            text-align: center;
-            font-size: 96px;
-        }
-    </style>
-{% endblock %}
-
-{% block body %}
-    <div class="title">NFQ Akademija</div>
+{% block container %}
+    {% block body %}
+        <section class="featured">
+            <div class="container">
+                <div class="row mar-bot40">
+                    <div class="col-md-6 col-md-offset-3">
+                        ​
+                        <div class="align-center">
+                            <i class="fa fa-university fa-5x mar-bot20"></i>
+                            <h2 class="slogan">Sveiki atvykę į Noriu studijuoti portalą</h2>
+                            <p>
+                                Mes gaime Jums padėti išsirinkti studijų programą. Laukelyje, kuris yra žemiau
+                                nurodykite dalykus, kuriuos norėtumėte mokytis studijų metu, o mes Jums pateiksime
+                                galimų studijų sąrašą.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="container">
+            <div class="row row-centered">
+                <div class="search-box-container">
+                    <form class="navbar-form">
+                        <div style="align-content: center">
+                            <div class="w358 a-center">
+                                <div class="form-group">
+                                    <input type="text" placeholder="Noriu" class="form-control input-lg">
+                                </div>
+                                <button type="submit" class="btn btn-success btn-lg">Ieškoti</button>
+                                <div style="text-align: right">
+                                    <a href="./searchresult.html" class="advanced-search">Detali paieška</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+    {% endblock %}
+    {% block footer %}
+        {{ parent() }}
+    {% endblock %}
+    </div>
 {% endblock %}

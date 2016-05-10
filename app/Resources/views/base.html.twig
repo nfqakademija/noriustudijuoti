@@ -2,31 +2,30 @@
 <html>
 <head>
     <meta charset="UTF-8" />
-    <title>{% block title %}{{ "My project" }}{% endblock %}</title>
+    <title>{% block title %}Noriu Studijuoti{% endblock %}</title>
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico')}}">
     {% block stylesheets %}
-        {#<link rel="stylesheet" href="{{ asset('css/style.css') }}"/>#}
+        <link href="./assets/main.css" rel="stylesheet">
     {% endblock %}
     {% block canonical_meta %}{% endblock %}
 </head>
 <body>
-<div class="container">
-    {% block container %}
-        {% block header %}
-            {% include "::inc/header.html.twig" %}
-        {% endblock %}
-        {% block body %}Hello world{% endblock %}
+{% block header %}
+    {% include "::inc/header.html.twig" %}
+{% endblock %}
+{% block container %}
+    {% block body %}
     {% endblock %}
-</div>
-{% block footer %}
-{% include "::inc/footer.html.twig" %}
+    {% block footer %}
+        {% include "::inc/footer.html.twig" %}
+    {% endblock %}
 {% endblock %}
 {% if app.environment == "dev" %}
     <script src="{{ asset('webpack-dev-server.js') }}"></script>
 {% endif %}
 {% block javascripts %}
-    {#<script type="text/javascript" src="{{ asset('assets/bundle.js') }}"></script>#}
+    <script src="./assets/bundle.js"></script>
 {% endblock %}
 </body>
 </html>
