@@ -13,6 +13,7 @@ use GuzzleHttp\Psr7\Response;
 use AppBundle\Parser\VVKParser;
 use Doctrine\ORM\EntityManager;
 use GuzzleHttp\Client;
+use AppBundle\Entity\Program;
 
 
 class VVKCrawler implements CrawlerInterface

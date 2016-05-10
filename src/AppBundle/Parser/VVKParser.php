@@ -59,8 +59,8 @@ class VVKParser implements ParserInterface
             $details = $crawler->filter('td.main-body')->first();
             $detailsText = $details->text();
             $programName = substr($detailsText, 0, strpos($detailsText, "Suteikiamas"));
-            preg_match("/Studijų programa:(.*?)Suteikiamas/",$detailsText,$programName);
-            preg_match("/Suteikiamas kvalifikacinis laipsnis:(.*?)Studijų/",$detailsText,$programDegree);
+            preg_match("/Studijų programa:(.*?)\s*Suteikiamas/",$detailsText,$programName);
+            preg_match("/Suteikiamas kvalifikacinis laipsnis:(.*?)\s*Studijų/",$detailsText,$programDegree);
             preg_match("/Trukmė:(.*),/",$detailsText,$programLength);
             $programLength = preg_replace("/[^0-9]/","",$programLength[1]);
             $programPrice = $details->filter('table')->eq(2)->filter('tr')->eq(1)->filter('td')->first();
@@ -69,10 +69,14 @@ class VVKParser implements ParserInterface
             $subjects = [];
             $details->filter('table')->first()->filter('tr')->each(function(Crawler $node, $i) use (&$subjects){
                 if($i > 1) {
-                    $node->filter('td')->each(function(Crawler $subjectName, $i) use (&$subjects) {
+                    $node->filter('td div')->each(function(Crawler $subjectName, $i) use (&$subjects) {
                         if(strlen($subjectName->text()) > 6){
                             $subject = new Subject();
-                            $subject->setName($subjectName->text());
+                            $textas = $subjectName->text();
+                            $textas = trim($textas);
+                            $subject->setName($textas);
+                            $subject->setCredits($i+1);
+                            $subject->setArbitrary(true);
                             array_push($subjects, $subject);
                             return $subjects;
                         }
@@ -85,11 +89,10 @@ class VVKParser implements ParserInterface
                 ->setDegree($programDegree[1])
                 ->setLength($programLength)
                 ->setPrice(filter_var($programPrice->text(),FILTER_SANITIZE_NUMBER_INT));
-
             foreach ($subjects as $subject) {
+                $subject->setProgram($program);
                 $program->addSubject($subject);
             }
-            var_dump($program);
             return $program;
     }
 

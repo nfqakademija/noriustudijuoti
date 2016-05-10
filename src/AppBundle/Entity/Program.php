@@ -31,7 +31,7 @@ class Program
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     private $faculty;
     /**
@@ -51,7 +51,7 @@ class Program
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $field;
     /**
@@ -70,14 +70,14 @@ class Program
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $form;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $description;
     /**
@@ -88,7 +88,7 @@ class Program
     private $degree;
 
     /**
-     * @ORM\OneToMany(targetEntity="Subject", mappedBy="program", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="Subject", mappedBy="program", cascade={"persist"})
      */
     private $subjects;
 
@@ -415,4 +415,6 @@ class Program
     {
         return $this->university;
     }
+
+
 }

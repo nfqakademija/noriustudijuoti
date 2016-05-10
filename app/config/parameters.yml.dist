@@ -17,6 +17,6 @@ parameters:
 
     # Parameters for crawling
     vu_url:            'http://www.vu.lt/kviecia/rinkis-studijas/studiju-programos/1-pakopos-studiju-programos/'
-
+    vvk_url:           'http://www.kolegija.lt/lt/studijos/studiju-programos/50'
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
