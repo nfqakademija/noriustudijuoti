@@ -15,7 +15,7 @@ class HomeController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('AppBundle:Statistics:main.html.twig', array(
+        return $this->render('AppBundle:Search:detailedView.html.twig', array(
             // ...
         ));
     }
