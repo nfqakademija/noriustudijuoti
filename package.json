@@ -13,10 +13,6 @@
     "css-loader": "^0.23.1",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.5",
-    "gulp": "^3.9.0",
-    "gulp-concat": "^2.6.0",
-    "gulp-sass": "^2.0.4",
-    "gulp-uglify": "^1.4.2",
     "html-loader": "^0.4.3",
     "html-webpack-plugin": "^2.15.0",
     "node-sass": "^3.4.2",
@@ -24,7 +20,8 @@
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.12.14",
-    "webpack-dev-server": "^1.14.1"
+    "webpack-dev-server": "^1.14.1",
+    "jquery": "^2.2.3"
   },
   "scripts": {
     "build": "node_modules/webpack/bin/webpack.js"
