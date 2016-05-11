@@ -13,10 +13,11 @@
         <exec executable="bower">
             <arg value="install"/>
         </exec>
-        <exec executable="npm">
+        <!--<exec executable="npm">
             <arg value="run"/>
             <arg value="build"/>
-        </exec>
+        </exec>-->
+        <exec executable="node_modules/.bin/webpack"/>
     </target>
 
     <target name="composer">
