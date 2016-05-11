@@ -14,7 +14,7 @@ use Symfony\Component\DomCrawler\Crawler;
 class VUParser implements ParserInterface
 {
 
-    public $function;
+    private $function;
 
     public function getProgramUrls(string $htmlBody) : array
     {

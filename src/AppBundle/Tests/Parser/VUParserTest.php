@@ -29,12 +29,8 @@ class VUParserTest extends \PHPUnit_Framework_TestCase
                 return null;
             }
         });
-        $program = $VUParser->getProgram(
-            call_user_func_array(
-                $VUParser->function,
-                ['http://www.vu.lt/kviecia/rinkis-studijas/studiju-programos/1-pakopos-studiju-programos/item/1']
-            )
-        );
+
+        $program = $VUParser->getProgram(file_get_contents(__DIR__ . '/../Fixtures/VUProgram.html'));
         foreach ($program->getSubjects() as $subject) {
             $program->removeSubject($subject);
         }
