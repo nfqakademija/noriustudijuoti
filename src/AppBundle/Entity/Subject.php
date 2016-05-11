@@ -34,21 +34,21 @@ class Subject
     /**
      * @var int
      *
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $credits;
 
     /**
      * @var int
      *
-     * @orm\Column(type="integer")
+     * @orm\Column(type="integer", nullable=true)
      */
     private $semester;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $assessment;
 

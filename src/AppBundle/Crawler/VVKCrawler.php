@@ -1,27 +1,36 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: gv
- * Date: 4/21/16
- * Time: 2:37 PM
+ * User: tadas
+ * Date: 4/19/16
+ * Time: 10:07 PM
  */
+
 namespace AppBundle\Crawler;
 
-use AppBundle\Parser\VUParser;
+use AppBundle\Parser\ParserException;
+use GuzzleHttp\Psr7\Response;
+use AppBundle\Parser\VVKParser;
 use Doctrine\ORM\EntityManager;
-use AppBundle\Entity\Program;
 use GuzzleHttp\Client;
+use AppBundle\Entity\Program;
 
-class VUCrawler implements CrawlerInterface
+
+class VVKCrawler implements CrawlerInterface
 {
+/**
+ * Crawls through given url, returns all parsed Programs.
+ * @param string $url
+ * @return
+ */
 
     private $parser;
     private $em;
     private $getBody;
 
-    public function __construct(EntityManager $entityManager, VUParser $parser)
+    public function __construct(EntityManager $entityManager, VVKParser $parser)
     {
-        $this->parser = $parser;
+        $this->parser = new VVKParser();
         $this->em = $entityManager;
         $this->getBody = function (string $url) {
             $client = new Client();
@@ -53,19 +62,19 @@ class VUCrawler implements CrawlerInterface
 
     public function crawlPrograms(string $url)
     {
-        $array = $this->getProgramUrls($url);
-        $lastUrl = null;
-        foreach ($array as $item) {
-            if ($item !== null && ($lastUrl !== $item)) {
-                $entity = $this->getProgram($item);
-                if ($entity !== null) {
-                    $entity->setUrl($item);
-                    $this->persistProgram($entity);
-                    break;
+//        var_dump($url);
+            $array = $this->getProgramUrls($url);
+            $lastUrl = null;
+            foreach ($array as $item) {
+                if ($item !== null && ($lastUrl !== $item)) {
+                    $entity = $this->getProgram($item);
+                    if ($entity !== null) {
+                        $entity->setUrl($item);
+                        $this->persistProgram($entity);
+                    }
                 }
+                $lastUrl = $item;
             }
-            $lastUrl = $item;
-        }
     }
 
     public function persistProgram(Program $program)
@@ -73,4 +82,4 @@ class VUCrawler implements CrawlerInterface
         $this->em->persist($program);
         $this->em->flush();
     }
-}
+ }

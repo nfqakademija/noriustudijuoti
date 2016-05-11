@@ -1,0 +1,63 @@
+{% extends "::base.html.twig" %}
+{% block container %}
+    <div class="container mar-top50">
+        {% block body %}
+            <div class="row">
+                <div class="col-md-12" style="border-bottom: 1px solid #000; margin-bottom: 10px;">
+                    <h2>[Vilniaus universitetas]</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <p>
+                        <h3>Papildoma informacija</h3>
+                    </p>
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr>
+                                <td>Padalinys:</td>
+                                <td>Matematikos ir informatikos fakultetas</td>
+                            </tr>
+                            <tr>
+                                <td>Studijų sritis:</td>
+                                <td>Fiziniai mokslai</td>
+                            </tr>
+                            <tr>
+                                <td>Studijų kryptis (šaka):</td>
+                                <td>Informatika</td>
+                            </tr>
+                            <tr>
+                                <td>Suteikiamas kvalifikacinis laipsnis:</td>
+                                <td>Informatikos bakalauras</td>
+                            </tr>
+                            <tr>
+                                <td>Trukmė:</td>
+                                <td>4 metai</td>
+                            </tr>
+                            <tr>
+                                <td>Studijų forma:</td>
+                                <td>Nuolatinės dieninės studijos</td>
+                            </tr>
+                            <tr>
+                                <td>Studijų programos apimtis kreditais:</td>
+                                <td>240</td>
+                            </tr>
+                            <tr>
+                                <td>Metinė studijų kaina:</td>
+                                <td>2248 EUR</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <p style="text-align: justify;"><span>Informatika – mokslas bei technikos šaka, nagrinėjanti informacijos apdorojimą naudojant kompiuterius. Informatika apima tiek abstrakčius algoritmų, formalių gramatikų ir panašius tyrimus, tiek ir konkretesnes sritis – programavimo kalbas, įvairaus lygmens programinę įrangą bei sistemas. Informatikos studijų programa yra universali ir skirtingai negu kitos panašios programos neriboja galimybių renkantis darbo vietą aukštųjų informacinių technologijų sektoriuose.</span></p>
+                </div>
+            </div>
+            ​{% endblock %}
+        {% block footer %}
+            {{ parent() }}
+        {% endblock %}
+    </div>
+{% endblock %}
