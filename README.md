@@ -10,4 +10,4 @@
 3. Paleidžiam webpack komandą. Jeigu komandos neranda (ji nėra instaliuota globaliai) paleidžiam `npm install` komandą ir iš naujo leidžiame webpack komandą.
 4. Palaukiame kol komanda bus sėkmingai įvykdyta (viskas turetų būti žalia).
 5. Paleidžiame serverį: php app/console server:start
-6. (Optional) Jeigu norime, kad nereikėtų atnaujinti kiekvieną kartą webpack bundle'u, tai galime paleidžiame `webpack --watch`.
+6. (Optional) Jeigu norime, kad nereikėtų atnaujinti kiekvieną kartą webpack bundle'u, tai galime paleisti su `webpack --watch`.

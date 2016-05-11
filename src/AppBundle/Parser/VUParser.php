@@ -14,7 +14,7 @@ use Symfony\Component\DomCrawler\Crawler;
 class VUParser implements ParserInterface
 {
 
-    private $function;
+    public $function;
 
     public function getProgramUrls(string $htmlBody) : array
     {
@@ -33,7 +33,7 @@ class VUParser implements ParserInterface
     {
         $crawler = new Crawler($htmlBody);
 
-        $name = $crawler->filter('.itemView .nodate h1')->text();
+        $name = trim($crawler->filter('.itemView .nodate h1')->text());
         $university = 'Vilniaus Universitetas';
         $text = $crawler->filter('.itemView .itemFullText :not(a)')->text();
         $informationLabel = $crawler->filter('.itemView .itemExtraFieldsLabel')->each(
