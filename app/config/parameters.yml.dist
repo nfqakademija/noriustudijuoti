@@ -15,6 +15,7 @@ parameters:
     mailer_user:       ~
     mailer_password:   ~
 
+    assets_base_url: 'http://localhost:8000'
     # Parameters for crawling
     vu_url:            'http://www.vu.lt/kviecia/rinkis-studijas/studiju-programos/1-pakopos-studiju-programos/'
     vvk_url:           'http://www.kolegija.lt/lt/studijos/studiju-programos/50'
