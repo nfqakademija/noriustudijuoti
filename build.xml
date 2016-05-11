@@ -17,7 +17,7 @@
             <arg value="run"/>
             <arg value="build"/>
         </exec>-->
-        <exec executable="node_modules/.bin/webpack"/>
+        <exec executable="/node_modules/.bin/webpack"/>
     </target>
 
     <target name="composer">
