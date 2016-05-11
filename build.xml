@@ -16,7 +16,7 @@
         <exec executable="npm">
             <arg value="run"/>
             <arg value="build"/>
-        </>
+        </exec>
     </target>
 
     <target name="composer">
