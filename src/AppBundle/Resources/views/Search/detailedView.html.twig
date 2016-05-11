@@ -61,13 +61,22 @@
                     </table>
                 </div>
             </div>
-            {% if program.description is not null %}
+            {% if program.description is not null%}
             <div class="row">
                 <div class="col-md-12">
                     <p style="text-align: justify;"><span>{{ program.description }}</span></p>
                 </div>
             </div>
             {% endif %}
+                {% if program.url is not null %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p style="text-align: right;"><span><a href="{{ program.url }}">Nuoroda į puslapį</a></span></p>
+                        </div>
+                    </div>
+                {% endif %}
+
+
             {% if (subjects is not null) %}
                 <h3>Dėstomi dalykai</h3>
                 <table class="table">
