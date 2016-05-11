@@ -66,4 +66,33 @@ class HomeController extends Controller
             'withSemesters' => $withSemesters
         ]);
     }
+    /**
+     * @Route("/Programs/", name="programView")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function programViewAction()
+    {
+        $programRepository = $this->getDoctrine()->getRepository("AppBundle:Program");
+        $programs = $programRepository->findAll();
+        $programFields = $programRepository->getProgramFields();
+        return $this->render('AppBundle:Search:programView.html.twig', [
+            'programs' => $programs,
+            'fields' => $programFields
+        ]);
+    }
+
+    /**
+     * @Route("/Programs/{name}", name="programViewFiltered")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function programViewFilteredAction($name)
+    {
+        $programRepository = $this->getDoctrine()->getRepository("AppBundle:Program");
+        $programs = $programRepository->findBy(['field' => $name]);
+        $programFields = $programRepository->getProgramFields();
+        return $this->render('AppBundle:Search:programView.html.twig', [
+            'programs' => $programs,
+            'fields' => $programFields
+        ]);
+    }
 }

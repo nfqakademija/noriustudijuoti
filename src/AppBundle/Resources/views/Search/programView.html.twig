@@ -1,0 +1,45 @@
+{% extends "::base.html.twig" %}
+{% block container %}
+    <div class="container mar-top50">
+    {% block body %}
+        <div class="row">
+            <div class="col-md-4">
+                <div>
+                    <h2>
+                        Studijų sritys
+                    </h2>
+                </div>
+            </div>
+            <div class="col-md-8" style="border-bottom: 1px solid #000; margin-bottom: 10px;">
+                <h2>Studijų programų sąrašas</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                {% if fields is not null %}
+                    {% for field in fields %}
+                    <div>
+                        <h4>
+                            {% if field['field'] is not null %}
+                                <a href="{{ path('programViewFiltered',
+                                {'name': field['field'] }) }}">{{ field['field'] }}</a>
+                            {% endif %}
+                        </h4>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            {% if programs is not null %}
+            <div class="col-md-8">
+                {% for program in programs %}
+                    {% include 'AppBundle:Search:singleProgram.html.twig' %}
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    {% endblock %}
+    {% block footer %}
+        {{ parent() }}
+    {% endblock %}
+    </div>
+{% endblock %}
