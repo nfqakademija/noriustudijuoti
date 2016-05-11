@@ -10,8 +10,5 @@ namespace AppBundle\Repository;
  */
 class ProgramRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function getProgramWith()
-    {
 
-    }
 }

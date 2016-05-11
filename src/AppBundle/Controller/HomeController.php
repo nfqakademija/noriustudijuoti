@@ -52,8 +52,18 @@ class HomeController extends Controller
      */
     public function detailedInfoAction($id)
     {
+        $program = $this->getDoctrine()->getRepository("AppBundle:Program")->find($id);
+        $subjects = $this->getDoctrine()->getRepository("AppBundle:Subject")->getSubjectsBySemester($id);
+        $withSemesters = true;
+        if (empty(array_filter($subjects))) {
+            $withSemesters = false;
+            $subjects = $this->getDoctrine()->getRepository("AppBundle:Subject")->findBy(['program' => $id]);
+        }
+
         return $this->render('AppBundle:Search:detailedView.html.twig', [
-            'program' => $this->getDoctrine()->getRepository("AppBundle:Program")->find($id)
+            'program' => $program,
+            'subjects' => $subjects,
+            'withSemesters' => $withSemesters
         ]);
     }
 }
