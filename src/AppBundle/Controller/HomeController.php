@@ -28,10 +28,14 @@ class HomeController extends Controller
      */
     public function searchAction(Request $request)
     {
+        $noriuValue = $request->get('noriu');
+        $nenoriuValue = $request->get('nenoriu');
         $array = $this->getDoctrine()
             ->getRepository('AppBundle:Program')->getProgramList($request);
         return $this->render('AppBundle:Search:advancedSearch.html.twig', [
-            'programArray' => $array
+            'programArray' => $array,
+            'noriuValue' => $noriuValue,
+            'nenoriuValue' => $nenoriuValue
         ]);
     }
 
