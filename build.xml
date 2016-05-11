@@ -13,7 +13,7 @@
         <exec executable="bower">
             <arg value="install"/>
         </exec>
-        <exec executable="node_modules/.bin/webpack"/>
+        <exec executable="${basedir}/node_modules/.bin/webpack"/>
     </target>
 
     <target name="composer">
