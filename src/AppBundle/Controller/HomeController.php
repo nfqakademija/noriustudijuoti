@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Program;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Repository\ProgramRepository;
 
 class HomeController extends Controller
 {
@@ -27,9 +28,8 @@ class HomeController extends Controller
      */
     public function searchAction(Request $request)
     {
-        $name = $request->get('noriu');
-        $array = $this->getDoctrine()->getRepository("AppBundle:Program")->findBy(['name' => $name]);
-
+        $array = $this->getDoctrine()
+            ->getRepository('AppBundle:Program')->getProgramList($request);
         return $this->render('AppBundle:Search:advancedSearch.html.twig', [
             'programArray' => $array
         ]);
