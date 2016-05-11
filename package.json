@@ -27,6 +27,6 @@
     "webpack-dev-server": "^1.14.1"
   },
   "scripts": {
-    "build": "node_modules/.bin/webpack"
+    "build": "node_modules/webpack/bin/webpack.js"
   }
 }

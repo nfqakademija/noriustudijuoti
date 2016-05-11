@@ -27,8 +27,6 @@ class HomeController extends Controller
      */
     public function searchAction(Request $request)
     {
-        var_dump($this->getDoctrine()->getRepository("AppBundle:Program")
-            ->findOneBy(['name' => 'Biochemija'])->getSubjects()->first());
         $name = $request->get('noriu');
         $array = $this->getDoctrine()->getRepository("AppBundle:Program")->findBy(['name' => $name]);
 
@@ -44,6 +42,17 @@ class HomeController extends Controller
     public function statisticsAction()
     {
         return $this->render('AppBundle:Statistics:main.html.twig', [
+
+        ]);
+    }
+
+    /**
+     * @Route("/Information/{id}", name="detailedInfo")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function detailedInfoAction()
+    {
+        return $this->render('AppBundle:Search:detailedView.html.twig', [
 
         ]);
     }
