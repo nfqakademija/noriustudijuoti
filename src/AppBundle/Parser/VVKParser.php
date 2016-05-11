@@ -10,7 +10,6 @@ namespace AppBundle\Parser;
 
 use AppBundle\Entity\Program;
 use AppBundle\Entity\Subject;
-use AppBundle\Parser\ParserInterface;
 use Symfony\Component\DomCrawler\Crawler;
 
 class VVKParser implements ParserInterface
@@ -75,7 +74,7 @@ class VVKParser implements ParserInterface
                             $textas = $subjectName->text();
                             $textas = trim($textas);
                             $subject->setName($textas);
-                            $subject->setCredits($i+1);
+                            $subject->setSemester($i+1);
                             $subject->setArbitrary(true);
                             array_push($subjects, $subject);
                             return $subjects;

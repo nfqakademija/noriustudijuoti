@@ -30,18 +30,21 @@ class ProgramRepository extends \Doctrine\ORM\EntityRepository
         for ($i = 0; $i < count($wants); $i++) {
             if ($i == 0) {
                 $qb->where('AppBundle:Subject.name LIKE :wants')
-                    ->setParameter('wants', $wants[$i]);
+                    ->setParameter('wants', '%'.$wants[$i].'%');
             } else {
                 $qb->orWhere('AppBundle:Subject.name LIKE :wants' . $i)
-                    ->setParameter('wants' . $i, $wants[$i]);
+                    ->setParameter('wants' . $i, '%'.$wants[$i].'%');
+            }
+        }
+        if($dislikes != "")
+        {
+            $dislikes = explode(",", $dislikes);
+            for ($i = 0; $i < count($dislikes); $i++) {
+                $qb->andWhere('AppBundle:Subject.name NOT LIKE :dislikes' . $i)
+                    ->setParameter('dislikes' . $i, '%'.$dislikes[$i].'%');
             }
         }
 
-        $dislikes = explode(",", $dislikes);
-        for ($i = 0; $i < count($dislikes); $i++) {
-            $qb->andWhere('AppBundle:Subject.name NOT LIKE :dislikes' . $i)
-                ->setParameter('dislikes' . $i, $dislikes[$i]);
-        }
 
         if ($length != "") {
             $qb->andWhere('p.length = :length')
