@@ -18,47 +18,101 @@
                         {% if program.faculty is not null %}
                             <tr>
                                 <td>Padalinys:</td>
-                                <td>{{ program.faculty }}/td>
+                                <td>{{ program.faculty }}</td>
                             </tr>
                         {% endif %}
-                        {% if program.field %}
+                        {% if program.field is not null %}
                             <tr>
                                 <td>Studijų sritis:</td>
-                                <td>Fiziniai mokslai</td>
+                                <td>{{ program.field }}</td>
                             </tr>
+                        {% endif %}
+                        {% if program.branch is not null %}
                             <tr>
                                 <td>Studijų kryptis (šaka):</td>
-                                <td>Informatika</td>
+                                <td>{{ program.branch }}</td>
                             </tr>
+                        {% endif %}
+                        {% if program.degree is not null %}
                             <tr>
                                 <td>Suteikiamas kvalifikacinis laipsnis:</td>
-                                <td>Informatikos bakalauras</td>
+                                <td>{{ program.degree }}</td>
                             </tr>
+                        {% endif %}
+                        {% if program.length is not null %}
                             <tr>
                                 <td>Trukmė:</td>
-                                <td>4 metai</td>
+                                <td>{{ program.length }} metai</td>
                             </tr>
+                        {% endif %}
+                        {% if program.form is not null %}
                             <tr>
                                 <td>Studijų forma:</td>
-                                <td>Nuolatinės dieninės studijos</td>
+                                <td>{{ program.form }}</td>
                             </tr>
-                            <tr>
-                                <td>Studijų programos apimtis kreditais:</td>
-                                <td>240</td>
-                            </tr>
+                        {% endif %}
+                        {% if program.price is not null %}
                             <tr>
                                 <td>Metinė studijų kaina:</td>
-                                <td>2248 EUR</td>
+                                <td>{{ program.price }} EUR</td>
                             </tr>
+                        {% endif %}
                         </tbody>
                     </table>
                 </div>
             </div>
+            {% if program.description is not null %}
             <div class="row">
                 <div class="col-md-12">
-                    <p style="text-align: justify;"><span>Informatika – mokslas bei technikos šaka, nagrinėjanti informacijos apdorojimą naudojant kompiuterius. Informatika apima tiek abstrakčius algoritmų, formalių gramatikų ir panašius tyrimus, tiek ir konkretesnes sritis – programavimo kalbas, įvairaus lygmens programinę įrangą bei sistemas. Informatikos studijų programa yra universali ir skirtingai negu kitos panašios programos neriboja galimybių renkantis darbo vietą aukštųjų informacinių technologijų sektoriuose.</span></p>
+                    <p style="text-align: justify;"><span>{{ program.description }}</span></p>
                 </div>
             </div>
+            {% endif %}
+            {% if (subjects is not null) %}
+                <h3>Dėstomi dalykai</h3>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td>Pavadinimas</td>
+                            <td>Kreditų skaičius</td>
+                            {% if withSemesters %}
+                                <td>Vertinimas</td>
+                            {% endif %}
+                            <td>Privalomas</td>
+                        </tr>
+                {% if withSemesters %}
+                    {% for key, semester in subjects %}
+                        <tr><td colspan="4"><b>{{ key + 1 }} semestras</b></td></tr>
+                        {% for subject in semester %}
+                            <tr>
+                                <td>{% if subject.name is not null %} {{ subject.name }} {% endif %}</td>
+                                <td>{% if subject.credits is not null %} {{ subject.credits }} {% endif %}</td>
+                                <td>{% if subject.assessment is not null %} {{ subject.assessment }} {% endif %}</td>
+                                <td>
+                                    {% if subject.arbitrary is not null %}
+                                        {{ subject.arbitrary ? 'Taip': 'Ne' }}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% endfor %}
+                {% else %}
+                    {% for subject in subjects %}
+                        <tr>
+                            <td>{% if subject.name is not null %} {{ subject.name }} {% endif %}</td>
+                            <td>{% if subject.credits is not null %} {{ subject.credits }} {% endif %}</td>
+                            {% if subject.assessment is not null %}<td> {{ subject.assessment }} </td>{% endif %}
+                            <td>
+                                {% if subject.arbitrary is not null %}
+                                    {{ subject.arbitrary ? 'Taip': 'Ne' }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+                    </tbody>
+                </table>
+            {% endif %}
             ​{% endblock %}
         {% block footer %}
             {{ parent() }}

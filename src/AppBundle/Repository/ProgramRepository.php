@@ -54,4 +54,17 @@ class ProgramRepository extends \Doctrine\ORM\EntityRepository
         }
         return $qb->getQuery()->getResult();
     }
+
+    public
+    function getProgramFields()
+    {
+        $qb = $this->getEntityManager();
+        $queryFields = $qb->createQuery(
+            'SELECT DISTINCT p.field
+            FROM AppBundle:Program p
+            ORDER by p.field ASC'
+        );
+        return $queryFields->getArrayResult();
+    }
+
 }

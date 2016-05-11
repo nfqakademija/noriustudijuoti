@@ -52,8 +52,47 @@ class HomeController extends Controller
      */
     public function detailedInfoAction($id)
     {
+        $program = $this->getDoctrine()->getRepository("AppBundle:Program")->find($id);
+        $subjects = $this->getDoctrine()->getRepository("AppBundle:Subject")->getSubjectsBySemester($id);
+        $withSemesters = true;
+        if (empty(array_filter($subjects))) {
+            $withSemesters = false;
+            $subjects = $this->getDoctrine()->getRepository("AppBundle:Subject")->findBy(['program' => $id]);
+        }
+
         return $this->render('AppBundle:Search:detailedView.html.twig', [
-            'program' => $this->getDoctrine()->getRepository("AppBundle:Program")->find($id)
+            'program' => $program,
+            'subjects' => $subjects,
+            'withSemesters' => $withSemesters
+        ]);
+    }
+    /**
+     * @Route("/Programs/", name="programView")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function programViewAction()
+    {
+        $programRepository = $this->getDoctrine()->getRepository("AppBundle:Program");
+        $programs = $programRepository->findAll();
+        $programFields = $programRepository->getProgramFields();
+        return $this->render('AppBundle:Search:programView.html.twig', [
+            'programs' => $programs,
+            'fields' => $programFields
+        ]);
+    }
+
+    /**
+     * @Route("/Programs/{name}", name="programViewFiltered")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function programViewFilteredAction($name)
+    {
+        $programRepository = $this->getDoctrine()->getRepository("AppBundle:Program");
+        $programs = $programRepository->findBy(['field' => $name]);
+        $programFields = $programRepository->getProgramFields();
+        return $this->render('AppBundle:Search:programView.html.twig', [
+            'programs' => $programs,
+            'fields' => $programFields
         ]);
     }
 }
