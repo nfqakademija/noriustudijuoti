@@ -50,10 +50,10 @@ class HomeController extends Controller
      * @Route("/Information/{id}", name="detailedInfo")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function detailedInfoAction()
+    public function detailedInfoAction($id)
     {
         return $this->render('AppBundle:Search:detailedView.html.twig', [
-
+            'program' => $this->getDoctrine()->getRepository("AppBundle:Program")->find($id)
         ]);
     }
 }

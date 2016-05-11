@@ -4,7 +4,8 @@
         {% block body %}
             <div class="row">
                 <div class="col-md-12" style="border-bottom: 1px solid #000; margin-bottom: 10px;">
-                    <h2>[Vilniaus universitetas]</h2>
+                    <h2>{{ program.name }}</h2>
+                    <h4>{{ program.university }}</h4>
                 </div>
             </div>
             <div class="row">
@@ -14,10 +15,13 @@
                     </p>
                     <table class="table table-striped">
                         <tbody>
+                        {% if program.faculty is not null %}
                             <tr>
                                 <td>Padalinys:</td>
-                                <td>Matematikos ir informatikos fakultetas</td>
+                                <td>{{ program.faculty }}/td>
                             </tr>
+                        {% endif %}
+                        {% if program.field %}
                             <tr>
                                 <td>Studijų sritis:</td>
                                 <td>Fiziniai mokslai</td>
