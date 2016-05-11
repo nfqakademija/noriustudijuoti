@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class ProgramRepository extends \Doctrine\ORM\EntityRepository
 {
-    private $em;
 
     public function getProgramList(Request $request) : array
     {
