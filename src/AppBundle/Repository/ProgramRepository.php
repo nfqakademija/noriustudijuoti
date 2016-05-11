@@ -2,6 +2,9 @@
 
 namespace AppBundle\Repository;
 
+
+use Symfony\Component\HttpFoundation\Request;
+
 /**
  * ProgramaRepository
  *
@@ -10,8 +13,46 @@ namespace AppBundle\Repository;
  */
 class ProgramRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function getProgramWith()
-    {
+    private $em;
 
+    public function getProgramList(Request $request) : array
+    {
+        $wants = $request->get('noriu');
+        $dislikes = $request->get('nenoriu');
+        $length = $request->get('length');
+        $price = $request->get('price');
+
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select(array('p'))
+            ->from('AppBundle:Program', 'p')
+            ->innerJoin('p.subjects', 'AppBundle:Subject');
+        $wants = explode(",", $wants);
+
+        for ($i = 0; $i < count($wants); $i++) {
+            if ($i == 0) {
+                $qb->where('AppBundle:Subject.name LIKE :wants')
+                    ->setParameter('wants', $wants[$i]);
+            } else {
+                $qb->orWhere('AppBundle:Subject.name LIKE :wants' . $i)
+                    ->setParameter('wants' . $i, $wants[$i]);
+            }
+        }
+
+        $dislikes = explode(",", $dislikes);
+        for ($i = 0; $i < count($dislikes); $i++) {
+            $qb->andWhere('AppBundle:Subject.name NOT LIKE :dislikes' . $i)
+                ->setParameter('dislikes' . $i, $dislikes[$i]);
+        }
+
+        if ($length != "") {
+            $qb->andWhere('p.length = :length')
+                ->setParameter('length', $length);
+        }
+
+        if ($price != "") {
+            $qb->andWhere('p.price < :price')
+                ->setParameter('price', $price);
+        }
+        return $qb->getQuery()->getResult();
     }
 }
