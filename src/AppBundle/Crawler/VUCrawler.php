@@ -61,6 +61,7 @@ class VUCrawler implements CrawlerInterface
                 if ($entity !== null) {
                     $entity->setUrl($item);
                     $this->persistProgram($entity);
+                    break;
                 }
             }
             $lastUrl = $item;

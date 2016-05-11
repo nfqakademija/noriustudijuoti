@@ -65,6 +65,7 @@ class VUParser implements ParserInterface
 
         if ($crawledUrl->count() > 0) {
             foreach ($subjects as $subject) {
+                $subject->setProgram($program);
                 $program->addSubject($subject);
             }
         }
@@ -122,7 +123,7 @@ class VUParser implements ParserInterface
                 }
                 continue;
             } else {
-                switch($counter) {
+                switch ($counter) {
                     case 1:
                         $subject = new Subject();
                         $subject->setName($info[$i]);
@@ -138,8 +139,7 @@ class VUParser implements ParserInterface
                         $subject->setArbitrary($arbitrary)
                             ->setSemester($currentSemester);
                         $subjectArray[] = $subject;
-                        continue;
-                        break;
+                        continue 2;
                 }
                 $counter++;
             }

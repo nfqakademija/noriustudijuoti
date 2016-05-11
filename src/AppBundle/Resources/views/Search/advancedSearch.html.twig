@@ -6,20 +6,20 @@
         <div class="col-md-4">
         </div>
         <div class="col-md-8" style="border-bottom: 1px solid #000; margin-bottom: 10px;">
-            <h2><a href="#">Studijų sąrašas</a> > <a href="#">Technologijos</a> > IT</h2>
+            <h2>Detali Paieška</h2>
         </div>
     </div>
     <div class="row">
         <div class="col-md-4">
-            <form class="navbar-form">
+            <form class="navbar-form" target="{{ path('MainSearch') }}">
                 <div>
                     <div>
                         <div class="form-group w100pc">
-                            <input type="text" placeholder="Noriu" class="form-control input-lg w100pc">
+                            <input name="noriu" type="text" placeholder="Noriu" class="form-control input-lg w100pc">
                         </div>
                         <br/><br/>
                         <div class="form-group w100pc">
-                            <input type="text" placeholder="Nenoriu" class="form-control input-lg w100pc">
+                            <input name="nenoriu" type="text" placeholder="Nenoriu" class="form-control input-lg w100pc">
                         </div>
                         <br/><br/>
                         <div>
@@ -94,33 +94,9 @@
             </form>
         </div>
         <div class="col-md-8">
-            <div class="row" style="border: 1px solid #e5e5e5; margin-bottom: 10px;">
-                <div class="col-md-8" style="padding:10px;">
-                    <span style="font-size: 21px;">Internetinių svetainių kūrimas</span><br/>
-                    <span style="font-size: 18px;"><a href="#">Vilniaus kolegija</a></span><br/>
-                    Informacinių sistemų inžinerija<br/>
-                </div>
-                <div class="col-md-2" style="padding:10px;"><h1 style="border-right: 2px solid;">150</h1></div>
-                <div class="col-md-2" style="padding:10px;">Kita info</div>
-            </div>
-            <div class="row" style="border: 1px solid #e5e5e5; margin-bottom: 10px;">
-                <div class="col-md-8" style="padding:10px;">
-                    <span style="font-size: 21px;">Internetinių svetainių kūrimas</span><br/>
-                    <span style="font-size: 18px;"><a href="#">Vilniaus kolegija</a></span><br/>
-                    Informacinių sistemų inžinerija<br/>
-                </div>
-                <div class="col-md-2" style="padding:10px;"><h1 style="border-right: 2px solid;">150</h1></div>
-                <div class="col-md-2" style="padding:10px;">Kita info</div>
-            </div>
-            <div class="row" style="border: 1px solid #e5e5e5; margin-bottom: 10px;">
-                <div class="col-md-8" style="padding:10px;">
-                    <span style="font-size: 21px;">Internetinių svetainių kūrimas</span><br/>
-                    <span style="font-size: 18px;"><a href="#">Vilniaus kolegija</a></span><br/>
-                    Informacinių sistemų inžinerija<br/>
-                </div>
-                <div class="col-md-2" style="padding:10px;"><h1 style="border-right: 2px solid;">150</h1></div>
-                <div class="col-md-2" style="padding:10px;">Kita info</div>
-            </div>
+            {% for program in programArray %}
+                {% include 'AppBundle:Search:singleProgram.html.twig' %}
+            {% endfor %}
         </div>
     </div>
     ​{% endblock %}
