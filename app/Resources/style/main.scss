@@ -94,6 +94,7 @@ section.featured {
 
 .align-center {
   text-align: center;
+  font-size: larger;
 }
 
 .mar-top50 {
@@ -146,8 +147,9 @@ section.featured h2.slogan {
 }
 
 .advanced-search {
-  color: #4F827C;
+  color: #FFFFFF;
   text-align: right;
+  text-decoration: none;
 }
 
 .w358 {
@@ -160,4 +162,11 @@ section.featured h2.slogan {
 }
 .w100pc {
   width: 100% !important;
+}
+
+.text-large {
+  font-size: larger;
+}
+body {
+  height: 100%;
 }

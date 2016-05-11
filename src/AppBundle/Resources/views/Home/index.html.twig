@@ -1,45 +1,48 @@
 {% extends "::base.html.twig" %}
 {% block container %}
     {% block body %}
-        <section class="featured">
+        <section class="featured" xmlns="http://www.w3.org/1999/html">
             <div class="container">
                 <div class="row mar-bot40">
                     <div class="col-md-6 col-md-offset-3">
                         ​
                         <div class="align-center">
                             <i class="fa fa-university fa-5x mar-bot20"></i>
-                            <h2 class="slogan">Sveiki atvykę į Noriu studijuoti portalą</h2>
-                            <p>
-                                Mes gaime Jums padėti išsirinkti studijų programą. Laukelyje, kuris yra žemiau
-                                nurodykite dalykus, kuriuos norėtumėte mokytis studijų metu, o mes Jums pateiksime
-                                galimų studijų sąrašą.
-                            </p>
+                            <h2 class="slogan">Noriu studijuoti</h2>
+
+                            <div class="row row-centered">
+                                <div class="search-box-container">
+                                    <form class="navbar-form">
+                                        <div style="align-content: center">
+                                            <div class="w358 a-center">
+                                                <div class="form-group">
+                                                    <input type="text" placeholder="Noriu" class="form-control input-lg">
+                                                </div>
+                                                <button type="submit" class="btn btn-success btn-lg">Ieškoti</button>
+                                                <div style="text-align: right">
+                                                    <a href="../Search/advancedSearch.html.twig" class="advanced-search">Detali paieška</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <p class="text-large">
+                                    Mes galime Jums padėti išsirinkti studijų programą. Laukelyje, kuris yra žemiau
+                                    nurodykite dalykus, kuriuos norėtumėte mokytis studijų metu, o mes Jums pateiksime
+                                    galimų studijų sąrašą.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
         <div class="container">
-            <div class="row row-centered">
-                <div class="search-box-container">
-                    <form class="navbar-form">
-                        <div style="align-content: center">
-                            <div class="w358 a-center">
-                                <div class="form-group">
-                                    <input type="text" placeholder="Noriu" class="form-control input-lg">
-                                </div>
-                                <button type="submit" class="btn btn-success btn-lg">Ieškoti</button>
-                                <div style="text-align: right">
-                                    <a href="../Search/advancedSearch.html.twig" class="advanced-search">Detali paieška</a>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
     {% endblock %}
     {% block footer %}
-        {{ parent() }}
+        <footer class="footer">
+            <p class="align-center">© NFQ 2016</p>
+        </footer>
     {% endblock %}
     </div>
 {% endblock %}
