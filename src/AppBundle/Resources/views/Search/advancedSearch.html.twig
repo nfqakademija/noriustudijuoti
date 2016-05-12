@@ -26,7 +26,8 @@
                         <div>
                             Studijų trukmė
                             <div class="row" style="padding-top: 5px; padding-bottom: 5px; border-top: 1px solid #000; border-bottom: 1px solid #000;">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
+                                <!--<div class="col-md-6">
                                     <div class="checkbox">
                                         <label>
                                             <input type="checkbox"> 3 metai
@@ -55,6 +56,11 @@
                                             <input type="checkbox"> 5 metai
                                         </label>
                                     </div>
+                                </div>-->
+                                <div class="range-slider">
+                                    <input class="range-slider__range" name="length" type="range" value="4" min="3" max="6">
+                                    <span class="range-slider__value">0</span>
+                                </div>
                                 </div>
                             </div>
                         </div>
@@ -63,7 +69,7 @@
                             Studijų kaina (per metus)
                             <div class="row" style="padding-top: 5px; padding-bottom: 5px; border-top: 1px solid #000; border-bottom: 1px solid #000;">
                                 <div class="col-md-12">
-                                    <div class="checkbox">
+                                   <!-- <div class="checkbox">
                                         <label>
                                             <input type="checkbox"> Nuo 0 iki 1000
                                         </label>
@@ -82,7 +88,12 @@
                                         <label>
                                             <input type="checkbox"> Nuo 3000 iki 4000
                                         </label>
-                                    </div><br/>
+                                    </div><br/>-->
+                                    <div class="range-slider">
+                                        <input class="range-slider__range" name="price" type="range"
+                                               value="2000" min="0" max="4000" step="100">
+                                        <span class="range-slider__value">0</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -104,4 +115,7 @@
     {{ parent() }}
     {% endblock %}
 </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
 {% endblock %}
