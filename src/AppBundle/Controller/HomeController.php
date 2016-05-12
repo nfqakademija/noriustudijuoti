@@ -30,12 +30,16 @@ class HomeController extends Controller
     {
         $noriuValue = $request->get('noriu');
         $nenoriuValue = $request->get('nenoriu');
+        $lengthValue = $request->get('length');
+        $priceValue = $request->get('price');
         $array = $this->getDoctrine()
             ->getRepository('AppBundle:Program')->getProgramList($request);
         return $this->render('AppBundle:Search:advancedSearch.html.twig', [
             'programArray' => $array,
             'noriuValue' => $noriuValue,
-            'nenoriuValue' => $nenoriuValue
+            'nenoriuValue' => $nenoriuValue,
+            'lengthValue' => $lengthValue,
+            'priceValue' => $priceValue
         ]);
     }
 
